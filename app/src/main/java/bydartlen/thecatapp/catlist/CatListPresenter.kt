@@ -7,10 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import bydartlen.thecatapp.R
-import bydartlen.thecatapp.data.Cat
-import bydartlen.thecatapp.data.CatRepository
-import bydartlen.thecatapp.data.FileRepository
-import bydartlen.thecatapp.data.HEART
+import bydartlen.thecatapp.data.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import io.reactivex.Completable
@@ -29,20 +26,22 @@ class CatListPresenter @Inject constructor(
 ) :
     MvpPresenter<CatListView>() {
 
+    val disposable = AndroidDisposable()
+
     fun load(page: Long) {
-        catRepository.getCatList(page)
+        disposable.add(catRepository.getCatList(page)
             .withDefaultSchedulers()
             .subscribe { t1, t2 ->
                 viewState.addCats(t1.map { it.copy(heart = HEART.UNLIKE) })
-            }
+            })
     }
 
     fun onCatLiked(cat: Cat) {
-        catRepository.catLike(cat)
+        disposable.add(catRepository.catLike(cat)
             .withDefaultSchedulers()
             .subscribe {
 
-            }
+            })
     }
 
     fun downloadImage(url: String) {

@@ -54,4 +54,9 @@ class CatFavoriteFragment : MvpAppCompatFragment(), CatFavoriteView {
         (recyclerFavorite.adapter as CatsAdapter).currentList.addAll(list)
         (recyclerFavorite.adapter as CatsAdapter).notifyDataSetChanged()
     }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.disposable.dispose()
+    }
 }

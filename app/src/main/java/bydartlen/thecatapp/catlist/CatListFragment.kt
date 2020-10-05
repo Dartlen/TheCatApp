@@ -105,4 +105,9 @@ class CatListFragment : MvpAppCompatFragment(), CatListView {
         }
         return true
     }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.disposable.dispose()
+    }
 }
