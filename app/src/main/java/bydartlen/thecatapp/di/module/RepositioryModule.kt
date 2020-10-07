@@ -1,7 +1,7 @@
 package bydartlen.thecatapp.di.module
 
 import android.content.Context
-import bydartlen.thecatapp.data.CatDatabase
+import bydartlen.thecatapp.data.db.CatDatabase
 import bydartlen.thecatapp.data.FileRepository
 import dagger.Module
 import dagger.Provides

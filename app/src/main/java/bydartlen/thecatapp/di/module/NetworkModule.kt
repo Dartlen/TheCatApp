@@ -1,6 +1,6 @@
 package bydartlen.thecatapp.di.module
 
-import bydartlen.thecatapp.data.CatEndPoint
+import bydartlen.thecatapp.data.network.CatEndPoint
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

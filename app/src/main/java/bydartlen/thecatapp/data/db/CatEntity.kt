@@ -1,4 +1,4 @@
-package bydartlen.thecatapp.data
+package bydartlen.thecatapp.data.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,4 +1,4 @@
-package bydartlen.thecatapp.data
+package bydartlen.thecatapp.data.db
 
 import android.content.Context
 import androidx.room.Database

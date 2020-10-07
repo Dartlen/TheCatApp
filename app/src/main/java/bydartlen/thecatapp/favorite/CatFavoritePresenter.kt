@@ -1,7 +1,8 @@
 package bydartlen.thecatapp.favorite
 
-import bydartlen.thecatapp.catlist.withDefaultSchedulers
-import bydartlen.thecatapp.data.AndroidDisposable
+import bydartlen.thecatapp.base.AutoDisposable
+import bydartlen.thecatapp.base.addTo
+import bydartlen.thecatapp.base.withDefaultSchedulers
 import bydartlen.thecatapp.data.CatRepository
 import moxy.MvpPresenter
 import javax.inject.Inject
@@ -9,7 +10,7 @@ import javax.inject.Inject
 class CatFavoritePresenter @Inject constructor(private val catRepository: CatRepository) :
     MvpPresenter<CatFavoriteView>() {
 
-    val disposable = AndroidDisposable()
+    val disposable: AutoDisposable by lazy { AutoDisposable() }
 
     fun load() {
         catRepository.getFavoriteList()
@@ -17,5 +18,6 @@ class CatFavoritePresenter @Inject constructor(private val catRepository: CatRep
             .subscribe {
                 viewState.addCats(it)
             }
+            .addTo(disposable)
     }
 }

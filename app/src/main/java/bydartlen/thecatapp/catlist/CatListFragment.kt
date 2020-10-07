@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.DividerItemDecoration.HORIZONTAL
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import bydartlen.thecatapp.R
-import bydartlen.thecatapp.data.Cat
+import bydartlen.thecatapp.catlist.adapter.CatsAdapter
+import bydartlen.thecatapp.data.network.Cat
 import bydartlen.thecatapp.favorite.CatFavoriteFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cat_list.*
@@ -58,7 +59,7 @@ class CatListFragment : MvpAppCompatFragment(), CatListView {
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val totalItemCount = recyclerView.layoutManager!!.itemCount
+                val totalItemCount = recyclerView.layoutManager?.itemCount
                 if (totalItemCount == lastVisibleItemPosition + 1) {
                     presenter.load((recycler.adapter as CatsAdapter).itemCount.div(20L))
                 }
@@ -78,15 +79,14 @@ class CatListFragment : MvpAppCompatFragment(), CatListView {
             activity?.supportFragmentManager?.beginTransaction()?.replace(
                 R.id.container,
                 CatFavoriteFragment()
-            )?.commit()
+            )?.addToBackStack(null)?.commit()
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun addCats(list: List<Cat>) {
-        (recycler.adapter as CatsAdapter).currentList.addAll(list)
-        (recycler.adapter as CatsAdapter).notifyDataSetChanged()
+        (recycler.adapter as CatsAdapter).updateList(list)
     }
 
     private fun verifyPermissions(): Boolean {

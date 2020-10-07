@@ -19,7 +19,18 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), MainView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportFragmentManager.beginTransaction().add(R.id.container,
-            CatListFragment()).commit()
+        supportFragmentManager.beginTransaction().add(
+            R.id.container,
+            CatListFragment()
+        ).addToBackStack(null)
+            .commit()
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            super.onBackPressed()
+        } else {
+            supportFragmentManager.popBackStackImmediate()
+        }
     }
 }

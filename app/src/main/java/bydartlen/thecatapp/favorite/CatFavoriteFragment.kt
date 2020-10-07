@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import bydartlen.thecatapp.R
-import bydartlen.thecatapp.catlist.CatsAdapter
-import bydartlen.thecatapp.data.Cat
+import bydartlen.thecatapp.catlist.adapter.CatsAdapter
+import bydartlen.thecatapp.data.network.Cat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_cat_favorite.*
 import moxy.MvpAppCompatFragment
@@ -29,7 +29,7 @@ class CatFavoriteFragment : MvpAppCompatFragment(), CatFavoriteView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
+        setHasOptionsMenu(false)
         return inflater.inflate(R.layout.fragment_cat_favorite, container, false);
     }
 
@@ -47,16 +47,17 @@ class CatFavoriteFragment : MvpAppCompatFragment(), CatFavoriteView {
                 DividerItemDecoration.HORIZONTAL
             )
         )
-        recyclerFavorite.adapter = CatsAdapter({ cat: Cat -> },{})
+        recyclerFavorite.adapter = CatsAdapter({ cat: Cat -> }, {})
     }
 
     override fun addCats(list: List<Cat>) {
-        (recyclerFavorite.adapter as CatsAdapter).currentList.addAll(list)
-        (recyclerFavorite.adapter as CatsAdapter).notifyDataSetChanged()
+        (recyclerFavorite.adapter as CatsAdapter).updateList(list)
     }
 
     override fun onStop() {
         super.onStop()
         presenter.disposable.dispose()
     }
+
+
 }

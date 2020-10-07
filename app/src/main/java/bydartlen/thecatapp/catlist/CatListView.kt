@@ -1,6 +1,6 @@
 package bydartlen.thecatapp.catlist
 
-import bydartlen.thecatapp.data.Cat
+import bydartlen.thecatapp.data.network.Cat
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.Skip
 

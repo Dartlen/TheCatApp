@@ -1,4 +1,4 @@
-package bydartlen.thecatapp.data
+package bydartlen.thecatapp.catlist.adapter
 
 enum class HEART {
     LIKE,

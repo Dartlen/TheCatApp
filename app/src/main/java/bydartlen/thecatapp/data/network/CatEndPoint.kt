@@ -1,4 +1,4 @@
-package bydartlen.thecatapp.data
+package bydartlen.thecatapp.data.network
 
 import io.reactivex.Single
 import retrofit2.Retrofit
